@@ -11,22 +11,23 @@ package Utama;
  */
 public class Variabel {
     private static String kdUser;
-    private static String Username;     
-    
+    private static String Username;
     
     public static void setkodeUser(String kdUser) {
         Variabel.kdUser = kdUser;
     }
-    public static String getkdUser(){
+    
+    public static String getkdUser() {
         return kdUser;
-}
+    }
     
     public static void setUserLogin(String Username) {
         Variabel.Username = Username;
     }
+    
     public static String getUserLogin(){
         return Username;
-}
+    }
 }
 
 

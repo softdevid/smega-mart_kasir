@@ -253,18 +253,6 @@ public class Pembelian extends javax.swing.JInternalFrame {
             }
         });
 
-        txtnmBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnmBarangActionPerformed(evt);
-            }
-        });
-
-        jFormattedTextFieldhrgBeli.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jFormattedTextFieldhrgBeliKeyPressed(evt);
-            }
-        });
-
         jLabel3.setText("JML");
 
         jTextFieldjmlBeli.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -448,11 +436,10 @@ public class Pembelian extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBarcodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarcodeKeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
             String barcode = txtBarcode.getText();
-
             String query = "select namaBarang,hrgJual,hrgBeli from databarang where barcode ='"+barcode+"'";
+            
             try {
                 Statement stm=conn.createStatement();
                 ResultSet rs=stm.executeQuery(query);
@@ -467,7 +454,7 @@ public class Pembelian extends javax.swing.JInternalFrame {
                     jFormattedTextFieldhrgBeli.setText(String.format("%,.2f", hrgBeli));
 
                     jFormattedTextFieldhrgBeli.requestFocus();
-                }else {
+                } else {
                     txtnmBarang.setText("");
                     jTextFieldhrgJual.setText("0");
 
@@ -478,15 +465,6 @@ public class Pembelian extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_txtBarcodeKeyPressed
-
-    private void txtnmBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnmBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnmBarangActionPerformed
-
-    private void jFormattedTextFieldhrgBeliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldhrgBeliKeyPressed
-        // TODO add your handling code here:
-     
-    }//GEN-LAST:event_jFormattedTextFieldhrgBeliKeyPressed
 
     private void btnSimpanpembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanpembelianActionPerformed
         // TODO add your handling code here:

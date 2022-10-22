@@ -13,8 +13,8 @@ import java.sql.SQLException;
  * @author LENOVO
  */
 public class koneksi {
-    private static Connection mysqlconfig; 
-    public static Connection configDB(){
+    private static Connection mysqlconfig;
+    public static Connection configDB() {
         try {
 //            String url="jdbc:mysql://103.170.22.65:3306/newsmega_magang"; //url database
 //            String user="newsmega_magang"; //user database
@@ -29,6 +29,7 @@ public class koneksi {
         } catch (SQLException e) {
             System.err.println("koneksi gagal :"+e.getMessage()); //perintah menampilkan error pada koneksi
         }
+        
         return mysqlconfig;
     }    
 }

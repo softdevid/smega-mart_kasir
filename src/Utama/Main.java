@@ -24,6 +24,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -349,34 +350,38 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItemDataBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDataBarangActionPerformed
         dataBarang1 db = new dataBarang1();
         jDesktopPane_main.add(db);
+        
         try {
             db.setMaximum(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         db.setVisible(true);
     }//GEN-LAST:event_jMenuItemDataBarangActionPerformed
 
     private void jMenuItemPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPenjualanActionPerformed
         Penjualan pj = new Penjualan();
         jDesktopPane_main.add(pj);
+        
         try {
             pj.setMaximum(true);
-        } catch (Exception e) {
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         pj.setVisible(true);
         pj.txtBarcode.requestFocus();
     }//GEN-LAST:event_jMenuItemPenjualanActionPerformed
 
     private void jButtonloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonloginActionPerformed
-        // TODO add your handling code here:
-         if (jTextFieldnmUser.getText().length()==0) {
+         if (jTextFieldnmUser.getText().length() == 0) {
                 jTextFieldnmUser.requestFocus();
-            } else if(jPasswordFieldpassword.getText().length()==0) {
+            } else if(jPasswordFieldpassword.getPassword().length == 0) {
                 jPasswordFieldpassword.requestFocus();
             } else {
                 String nmUser = jTextFieldnmUser.getText();
-                String pwd = jPasswordFieldpassword.getText();
+                String pwd = Arrays.toString(jPasswordFieldpassword.getPassword());
 
                 String query = "select kdUser,password,level from datauser where namaUser= '"+nmUser+"'";
                 try {
@@ -407,56 +412,55 @@ public class Main extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "username salah");
                     }
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
             }
     }//GEN-LAST:event_jButtonloginActionPerformed
 
     private void jMenuItemPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPelangganActionPerformed
-        // TODO add your handling code here:
         dataPelanggan dp = new dataPelanggan();
         jDesktopPane_main.add(dp);
         
         try {
             dp.setMaximum(true);
-        } catch (Exception e) {
-            
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         dp.setVisible(true);
     }//GEN-LAST:event_jMenuItemPelangganActionPerformed
 
     private void jMenuItemSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSupplierActionPerformed
-        // TODO add your handling code here:
         dataSuplier ds = new dataSuplier();
         jDesktopPane_main.add(ds);
         
         try {
             ds.setMaximum(true);
-        } catch (Exception e) {
-            
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         ds.setVisible(true);
     }//GEN-LAST:event_jMenuItemSupplierActionPerformed
 
     private void jMenuItemUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUserActionPerformed
-        // TODO add your handling code here:
         dataUser du = new dataUser();
         jDesktopPane_main.add(du);
         
         try {
             du.setMaximum(true);
-        } catch (Exception e) {
-            
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         du.setVisible(true);
     }//GEN-LAST:event_jMenuItemUserActionPerformed
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
-        // TODO add your handling code here:
         System.exit(1);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void jMenuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogoutActionPerformed
-        // TODO add your handling code here:
        jMenuItemLogin.setEnabled(true);
        jMenuItemLogout.setEnabled(false);
        jMenuItemDataBarang.setEnabled(false);
@@ -470,20 +474,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemLogoutActionPerformed
 
     private void jMenuItemLapOmsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLapOmsetActionPerformed
-        // TODO add your handling code here:
         LaporanOmset lo = new LaporanOmset();
         jDesktopPane_main.add(lo);
         
         try {
             lo.setMaximum(true);
-        } catch (Exception e) {
-            
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         lo.setVisible(true);
     }//GEN-LAST:event_jMenuItemLapOmsetActionPerformed
 
     private void jMenuItemPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPembelianActionPerformed
-        // TODO add your handling code here:
         Pembelian pb = new Pembelian();
         jDesktopPane_main.add(pb);
         
@@ -492,25 +495,24 @@ public class Main extends javax.swing.JFrame {
         } catch (Exception e) {
             
         }
-        pb.setVisible(true);
         
+        pb.setVisible(true);
     }//GEN-LAST:event_jMenuItemPembelianActionPerformed
 
     private void jMenuItemLapLabaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLapLabaActionPerformed
-        // TODO add your handling code here:
         LaporanLaba lb = new LaporanLaba();
         jDesktopPane_main.add(lb);
         
         try {
             lb.setMaximum(true);
-        } catch (Exception e) {
-            
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         lb.setVisible(true);
     }//GEN-LAST:event_jMenuItemLapLabaActionPerformed
 
     private void jMenuItemLapPenjualanKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLapPenjualanKategoriActionPerformed
-        // TODO add your handling code here:
         LaporanKategori lb = new LaporanKategori();
         jDesktopPane_main.add(lb);
         
@@ -519,8 +521,8 @@ public class Main extends javax.swing.JFrame {
         } catch (Exception e) {
             
         }
-        lb.setVisible(true);
         
+        lb.setVisible(true);
     }//GEN-LAST:event_jMenuItemLapPenjualanKategoriActionPerformed
 
     /**
@@ -599,7 +601,6 @@ public class Main extends javax.swing.JFrame {
        jMenuLaporanPenjualan.setEnabled(true);
        jMenuItemPembelian.setEnabled(true);
        jMenuItemLaporanPembelian.setEnabled(true);
-       
     }
 
     private void tampil_kasir() {
@@ -614,6 +615,4 @@ public class Main extends javax.swing.JFrame {
        jMenuItemPembelian.setEnabled(false);
        jMenuItemLaporanPembelian.setEnabled(false);
     }
-    
-   
 }

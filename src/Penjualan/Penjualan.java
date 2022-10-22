@@ -19,12 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.HashPrintServiceAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.PrintServiceAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.PrinterName;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -32,15 +26,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
-import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /**
@@ -610,10 +601,8 @@ public class Penjualan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtnmBarangActionPerformed
 
     private void jButtonTambahMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahMemberActionPerformed
-        // TODO add your handling code here:
         FormUtil.centerWindow(jDialogTambah);
         jDialogTambah.setVisible(true);
-        
     }//GEN-LAST:event_jButtonTambahMemberActionPerformed
 
     private void txtkdPelangganKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtkdPelangganKeyPressed
@@ -640,7 +629,6 @@ public class Penjualan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtkdPelangganKeyPressed
 
     private void jButtonTambahPelanggan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahPelanggan1ActionPerformed
-        // TODO add your handling code here:
         if (jTextFieldKdPelangganTambah.getText().length()==0) {
             JOptionPane.showMessageDialog(null, "Masukan Kode Pelanggan");
         } else if (jTextFieldNmPelangganTambah.getText().length()==0) {
@@ -666,9 +654,7 @@ public class Penjualan extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-
         }
-
     }//GEN-LAST:event_jButtonTambahPelanggan1ActionPerformed
 
     private void txtBarcodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarcodeKeyPressed
@@ -718,7 +704,6 @@ public class Penjualan extends javax.swing.JInternalFrame {
                             }
                             PreparedStatement ps = (PreparedStatement) conn.prepareStatement(queryNext);
                             ps.executeUpdate();
-
                             
                             tampil_tabel();
                             tampil_total();
@@ -757,6 +742,7 @@ public class Penjualan extends javax.swing.JInternalFrame {
                     }
                     PreparedStatement ps = (PreparedStatement) conn.prepareStatement(queryNext);
                     ps.executeUpdate();
+                    
                     tampil_tabel();
                     tampil_total();
                     tampil_poin();
@@ -765,12 +751,11 @@ public class Penjualan extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
             }
-            
         }
     }//GEN-LAST:event_txtBarcodeKeyPressed
 
     private void jFormattedTextFieldQtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldQtyKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String nofakjual = txtnoFaktur.getText();
             String barcode = txtBarcode.getText();
             String jml = jFormattedTextFieldQty.getText();
@@ -809,6 +794,7 @@ public class Penjualan extends javax.swing.JInternalFrame {
                     if (update) {
                         queryNext = "update tabelrealpenjualan set jmlhJual="+jml+" where barcode="+barcode;
                     }
+                    
                     PreparedStatement ps = (PreparedStatement) conn.prepareStatement(queryNext);
                     ps.executeUpdate();
                     
@@ -825,10 +811,7 @@ public class Penjualan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jFormattedTextFieldQtyKeyPressed
 
     private void jFormattedTextFieldBayarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jFormattedTextFieldBayarCaretUpdate
-        // TODO add your handling code here:
-        if (jFormattedTextFieldBayar.getText().length()==0) {
-            
-        } else {
+        if (jFormattedTextFieldBayar.getText().length() != 0) {
             String bayar = jFormattedTextFieldBayar.getText();
             String bayarOke = bayar.replace(",", "");
             double pembayaran = Double.valueOf(bayarOke);
@@ -837,41 +820,37 @@ public class Penjualan extends javax.swing.JInternalFrame {
             double totalFormat = Double.valueOf(totalbayar);
 
             double kembali = pembayaran - totalFormat;
-            jFormattedTextFieldKembali.setText(String.format("%,.2f", kembali));
+            jFormattedTextFieldKembali.setText(String.format("%,.2f", kembali));   
         }
     }//GEN-LAST:event_jFormattedTextFieldBayarCaretUpdate
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
         simpan();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnCariBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariBarangActionPerformed
-        // TODO add your handling code here:
         FormUtil.centerWindow(jDialogCariBarang);
         jDialogCariBarang.setVisible(true);
         load_table();
     }//GEN-LAST:event_btnCariBarangActionPerformed
 
     private void jTextFieldCariBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCariBarangKeyReleased
-        // TODO add your handling code here:
         load_table();        
     }//GEN-LAST:event_jTextFieldCariBarangKeyReleased
 
     private void jFormattedTextFieldBayarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldBayarKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             simpan();
         }
     }//GEN-LAST:event_jFormattedTextFieldBayarKeyPressed
 
     private void jTableCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCariMouseClicked
-        // TODO add your handling code here:
         int baris = jTableCari.rowAtPoint(evt.getPoint());
         String barcode =jTableCari.getValueAt(baris, 0).toString();
         txtBarcode.setText(barcode);
         
         String query = "select namaBarang,hrgJual,hrgBeli from databarang where barcode ='"+barcode+"'";
+        
         try {
             Statement stm=conn.createStatement();
             ResultSet rs=stm.executeQuery(query);
@@ -898,21 +877,17 @@ public class Penjualan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableCariMouseClicked
 
     private void jTextFieldCariBarangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCariBarangKeyPressed
-         // TODO add your handling code here:
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jTableCari.getSelectionModel().addSelectionInterval(0, 0);
             jTableCari.requestFocus();
         }
     }//GEN-LAST:event_jTextFieldCariBarangKeyPressed
 
     private void jTableCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableCariKeyPressed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
-            
-            String barcode =txtBarcode.getText();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String barcode = txtBarcode.getText();
             String query = "select namaBarang,hrgJual,hrgBeli from databarang where barcode ='"+barcode+"'";
+            
             try {
                 Statement stm=conn.createStatement();
                 ResultSet rs=stm.executeQuery(query);
@@ -989,7 +964,6 @@ public class Penjualan extends javax.swing.JInternalFrame {
             }
             
             jpopMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-            
         }
     }//GEN-LAST:event_tabelPenjualanMouseReleased
 
@@ -1048,26 +1022,28 @@ public class Penjualan extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void tampilNamaFaktur() {
-        Date ys=new Date(); // membuat oject ys dari class Date
+        Date ys = new Date(); // membuat oject ys dari class Date
         SimpleDateFormat s=new SimpleDateFormat("dd-MM-yyyy"); //membuat object s dari class SimpleDateFormat dengan format (dd-MM-yyyy)yaitu (tanggal-bulan-tahun).
  
-            String TglHrIni = s.format(ys);
-            String sql = "Select No as no from tabel_penjualan ORDER by No desc";
-            try {
-                Statement stm=conn.createStatement();
-                ResultSet rs=stm.executeQuery(sql);
+        String TglHrIni = s.format(ys);
+        String sql = "Select No as no from tabel_penjualan ORDER by No desc";
+        
+        try {
+            Statement stm=conn.createStatement();
+            ResultSet rs=stm.executeQuery(sql);
 
-                if (rs.next()) {
-                    int no_t = Integer.parseInt(rs.getString("No")) + 1;
-                    txtnoFaktur.setText("FJ"+TglHrIni+"N"+Integer.toString(no_t));
-                } else {
-                    int no_t = 1;
-                    txtnoFaktur.setText("FJ"+TglHrIni+"N"+Integer.toString(no_t));
-                }
-                rs.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            } 
+            if (rs.next()) {
+                int no_t = Integer.parseInt(rs.getString("No")) + 1;
+                txtnoFaktur.setText("FJ"+TglHrIni+"N"+Integer.toString(no_t));
+            } else {
+                int no_t = 1;
+                txtnoFaktur.setText("FJ"+TglHrIni+"N"+Integer.toString(no_t));
+            }
+            
+            rs.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } 
     }
 
     private void tampil_tabel() {
@@ -1116,6 +1092,7 @@ public class Penjualan extends javax.swing.JInternalFrame {
     private void tampil_total() {
         String nomorFaktur = txtnoFaktur.getText();
         String query="select ifnull(sum(hrgJual*jmlhJual),0) as Total from tabelrealpenjualan where noFakturJualan = '"+nomorFaktur+"'";
+        
         try {
             Statement stm=conn.createStatement();
             ResultSet res=stm.executeQuery(query);
@@ -1132,6 +1109,7 @@ public class Penjualan extends javax.swing.JInternalFrame {
     private void simpan() {
         String nofakjual = txtnoFaktur.getText();
         String kdPelanggan = txtkdPelanggan.getText();
+        
         String jml = jLabelTotal.getText();
         String jmla = jml.replace(",", "");
         double total = Double.valueOf(jmla);
@@ -1146,35 +1124,36 @@ public class Penjualan extends javax.swing.JInternalFrame {
         String poina = poin.replace(",", "");
         double poinOk = Double.valueOf(poina);
         
-        
         String query = "insert into tabel_penjualan (No_Faktur_Jual,Tgl_Jual,Kd_Pelanggan,Total,Bayar,Kd_User,poin) values ('"+nofakjual+"',CurDate(),'"+kdPelanggan+"','"+total+"','"+bayarOk+"','"+kdUser+"','"+poinOk+"')";
+        
         try {
-               PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
-               ps.executeUpdate();
+            PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+            ps.executeUpdate();
 
-               cetak(nofakjual);
-               txtkdPelanggan.setText("");
-               txtnmPelanggan.setText("");
-               jTextFieldjmlPoint.setText("");
-               jFormattedTextFieldBayar.setText("");
-               jFormattedTextFieldKembali.setText("");
+            cetak(nofakjual);
 
-               tampilNamaFaktur();
-               tampil_tabel();
-               tampil_total();
-               tampil_poin();
-        } catch (Exception e) {
+            tampilNamaFaktur();
+            tampil_tabel();
+            tampil_total();
+            tampil_poin();
+            
+            txtkdPelanggan.setText("");
+            txtnmPelanggan.setText("");
+            jTextFieldjmlPoint.setText("");
+            jFormattedTextFieldBayar.setText("");
+            jFormattedTextFieldKembali.setText("");
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
     private void tampil_poin() {
-        if (txtkdPelanggan.getText().length()==0) {
+        if (txtkdPelanggan.getText().length() == 0) {
             jTextFieldjmlPoint.setText("0");
         } else {
-       
             String nomorFaktur = txtnoFaktur.getText();
-            String query="select ifnull(sum(hrgJual*jmlhJual),0) as Total , kelipatan from tabelrealpenjualan,point where noFakturJualan = '"+nomorFaktur+"'";
+            String query="select ifnull(sum(hrgJual*jmlhJual),0) as Total , kelipatan from tabelrealpenjualan,point where noFakturJualan = '"+nomorFaktur+"'";            
+            
             try {
                 Statement stm=conn.createStatement();
                 ResultSet res=stm.executeQuery(query);
@@ -1205,7 +1184,6 @@ public class Penjualan extends javax.swing.JInternalFrame {
         
         //menampilkan data database kedalam tabel
         try {
-            int no=1;
             String sql = "select * from databarang where namaBarang like '%"+nama+"%'";
             Statement stm=conn.createStatement();
             ResultSet res=stm.executeQuery(sql);
@@ -1223,7 +1201,8 @@ public class Penjualan extends javax.swing.JInternalFrame {
                 model.addRow(o);
             }
             jTableCari.setModel(model);
-        } catch (Exception e) {
+        } catch (NumberFormatException | SQLException e) {
+            System.out.println(e.getMessage());
         }
 }
 
@@ -1239,10 +1218,10 @@ public class Penjualan extends javax.swing.JInternalFrame {
 //            JasperViewer.viewReport(JP, false);
 //            Langsung print
            JasperPrintManager.printReport(JP, false);
-            
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (JRException e) {
+            System.err.println(e.getMessage());
         }
+        
     }
     
     public void resetField() {
