@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 22, 2022 at 12:14 PM
--- Server version: 5.7.36
--- PHP Version: 7.4.27
+-- Host: 127.0.0.1
+-- Generation Time: Oct 22, 2022 at 12:03 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `newsmega_magang`
+-- Database: `smegamart`
 --
-CREATE DATABASE IF NOT EXISTS `newsmega_magang` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `newsmega_magang`;
+CREATE DATABASE IF NOT EXISTS `smegamart` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `smegamart`;
 
 -- --------------------------------------------------------
 
@@ -33,17 +33,17 @@ CREATE TABLE `databarang` (
   `barcode` varchar(18) NOT NULL,
   `namaBarang` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL DEFAULT '-',
-  `kdKategori` int(11) NOT NULL DEFAULT '1',
-  `kdSatuan` int(11) NOT NULL DEFAULT '1',
+  `kdKategori` int(11) NOT NULL DEFAULT 1,
+  `kdSatuan` int(11) NOT NULL DEFAULT 1,
   `hrgBeli` int(11) NOT NULL,
   `hrgJual` int(11) NOT NULL,
-  `stok` int(11) NOT NULL DEFAULT '0',
-  `stok_gudang` int(11) NOT NULL DEFAULT '0',
-  `deskripsi` text,
-  `cloud_img` text,
-  `img_urls` text,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `stok` int(11) NOT NULL DEFAULT 0,
+  `stok_gudang` int(11) NOT NULL DEFAULT 0,
+  `deskripsi` text DEFAULT NULL,
+  `cloud_img` text DEFAULT NULL,
+  `img_urls` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -228,10 +228,10 @@ CREATE TABLE `datauser` (
   `password` text NOT NULL,
   `level` text NOT NULL,
   `noHp` varchar(20) NOT NULL DEFAULT '0',
-  `kabupaten` text,
-  `kecamatan` text,
-  `desa` text,
-  `alamatLengkap` text
+  `kabupaten` text DEFAULT NULL,
+  `kecamatan` text DEFAULT NULL,
+  `desa` text DEFAULT NULL,
+  `alamatLengkap` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -251,8 +251,8 @@ INSERT INTO `datauser` (`kdUser`, `namaUser`, `email`, `password`, `level`, `noH
 
 CREATE TABLE `gambar` (
   `kdGambar` int(11) NOT NULL,
-  `cloud_img` text,
-  `img_urls` text,
+  `cloud_img` text DEFAULT NULL,
+  `img_urls` text DEFAULT NULL,
   `barcode` varchar(15) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -281,8 +281,8 @@ CREATE TABLE `keranjang` (
   `qty` int(11) NOT NULL,
   `hrgJual` int(11) NOT NULL,
   `subtotal` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -330,9 +330,9 @@ CREATE TABLE `order` (
   `statusBayar` int(11) NOT NULL,
   `kdUser` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `tgl_Jual` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `alasanPembatalan` text
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `tgl_Jual` timestamp NOT NULL DEFAULT current_timestamp(),
+  `alasanPembatalan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -363,7 +363,7 @@ CREATE TABLE `personal_access_tokens` (
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -397,13 +397,13 @@ CREATE TABLE `rinci_order` (
   `id` int(11) NOT NULL,
   `noFaktur` varchar(18) NOT NULL,
   `qty` int(11) NOT NULL,
-  `subtotal` int(11) NOT NULL DEFAULT '0',
+  `subtotal` int(11) NOT NULL DEFAULT 0,
   `kdUser` int(11) NOT NULL,
-  `statusBayar` int(11) NOT NULL DEFAULT '0',
-  `status` int(11) NOT NULL DEFAULT '0',
-  `alamat` longtext,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `statusBayar` int(11) NOT NULL DEFAULT 0,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `alamat` longtext DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -474,7 +474,7 @@ CREATE TABLE `tabelrealpembelian` (
   `noFakturBeli` varchar(25) NOT NULL,
   `barcode` varchar(25) NOT NULL,
   `jmlBeli` int(11) NOT NULL,
-  `jmlStokGudang` int(11) NOT NULL DEFAULT '0',
+  `jmlStokGudang` int(11) NOT NULL DEFAULT 0,
   `hrgBeli` int(11) NOT NULL,
   `hrgJual` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -490,11 +490,11 @@ CREATE TABLE `tabelrealpenjualan` (
   `noFakturJualan` varchar(18) NOT NULL,
   `barcode` varchar(18) NOT NULL,
   `namaBarang` varchar(35) NOT NULL,
-  `jmlhJual` int(11) NOT NULL DEFAULT '1',
+  `jmlhJual` int(11) NOT NULL DEFAULT 1,
   `hrgJual` double NOT NULL,
   `hrgBeli` double NOT NULL,
-  `tgl_jual` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` int(11) NOT NULL DEFAULT '3'
+  `tgl_jual` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` int(11) NOT NULL DEFAULT 3
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -502,14 +502,18 @@ CREATE TABLE `tabelrealpenjualan` (
 --
 
 INSERT INTO `tabelrealpenjualan` (`no`, `noFakturJualan`, `barcode`, `namaBarang`, `jmlhJual`, `hrgJual`, `hrgBeli`, `tgl_jual`, `status`) VALUES
-(1, 'FJ22-10-2022N1', '089686870084', 'Ichi ocha the madu lemon', 4, 3000, 2750, '2022-10-22 04:08:32', 3),
-(2, 'FJ22-10-20222', '4902430110648', 'shampoo h&s sub zero 160ml', 1, 29500, 25220, '2022-10-22 04:22:46', 3),
-(3, 'FJ22-10-20222', '4902430102254', 'shampoo h&s bersih & harum 160ml', 1, 30000, 25200, '2022-10-22 04:30:08', 3),
-(4, 'FJ22-10-2022N2', '089686732009', 'chitato lite', 8, 2000, 1915, '2022-10-22 04:30:54', 3),
-(5, 'FJ22-10-20222', '4902430102254', 'shampoo h&s bersih & harum 160ml', 2, 30000, 25200, '2022-10-22 04:31:35', 3),
-(6, 'FJ22-10-20223', '4902430102254', 'shampoo h&s bersih & harum 160ml', 1, 30000, 25200, '2022-10-22 04:44:04', 3),
-(7, 'FJ22-10-20223', '8992745540687', 'mitu baby refreshing lime 10s', 3, 5500, 5106, '2022-10-22 04:45:52', 3),
-(8, 'FJ22-10-2022N4', '089686732009', 'chitato lite', 8, 2000, 1915, '2022-10-22 04:50:15', 3);
+(1, 'FJ22-10-2022N4', '089686732009', 'chitato lite', 5, 2000, 1915, '2022-10-22 06:51:00', 3),
+(2, 'FJ22-10-2022N5', '089686732009', 'chitato lite', 5, 2000, 1915, '2022-10-22 06:54:08', 3),
+(3, 'FJ22-10-2022N6', '089686732009', 'chitato lite', 5, 2000, 1915, '2022-10-22 06:55:09', 3),
+(4, 'FJ22-10-2022N6', '18529555', 'vit air mineral 550ml', 1, 2000, 1275, '2022-10-22 06:55:26', 3),
+(5, 'FJ22-10-2022N6', '3920001318911', 'better 36g', 3, 2000, 1700, '2022-10-22 06:55:39', 3),
+(6, 'FJ22-10-2022N7', '3920001318911', 'better 36g', 10, 2000, 1700, '2022-10-22 06:56:55', 3),
+(7, 'FJ22-10-2022N8', '3920001318911', 'better 36g', 1, 2000, 1700, '2022-10-22 07:08:33', 3),
+(8, 'FJ22-10-2022N8', '089686870084', 'Ichi ocha the madu lemon', 1, 3000, 2750, '2022-10-22 07:08:37', 3),
+(9, 'FJ22-10-2022N8', '089686604443', 'jetz coklat 1000an', 10, 1000, 850, '2022-10-22 07:08:45', 3),
+(10, 'FJ22-10-2022N9', '089686604443', 'jetz coklat 1000an', 20, 1000, 850, '2022-10-22 07:14:51', 3),
+(11, 'FJ22-10-2022N10', '089686604443', 'jetz coklat 1000an', 30, 1000, 850, '2022-10-22 07:16:18', 3),
+(12, 'FJ22-10-2022N11', '089686732009', 'chitato lite', 20, 2000, 1915, '2022-10-22 07:39:27', 3);
 
 -- --------------------------------------------------------
 
@@ -557,7 +561,15 @@ CREATE TABLE `tabel_penjualan` (
 INSERT INTO `tabel_penjualan` (`No`, `No_Faktur_Jual`, `Tgl_Jual`, `Kd_Pelanggan`, `Total`, `Bayar`, `Kd_User`, `poin`) VALUES
 (1, 'FJ22-10-2022N1', '2022-10-22', '', 12000, 15000, '1', 0),
 (2, 'FJ22-10-20222', '2022-10-22', '', 119500, 200000, '3', 2),
-(3, 'FJ22-10-20223', '2022-10-22', '', 46500, 50000, '3', 1);
+(3, 'FJ22-10-20223', '2022-10-22', '', 46500, 50000, '3', 1),
+(4, 'FJ22-10-2022N4', '2022-10-22', '', 10000, 10000, '1', 0),
+(5, 'FJ22-10-2022N5', '2022-10-22', '', 10000, 10000, '1', 0),
+(6, 'FJ22-10-2022N6', '2022-10-22', '', 18000, 20000, '1', 0),
+(7, 'FJ22-10-2022N7', '2022-10-22', '', 20000, 20000, '1', 0),
+(8, 'FJ22-10-2022N8', '2022-10-22', '', 15000, 15000, '1', 0),
+(9, 'FJ22-10-2022N9', '2022-10-22', '', 20000, 20000, '1', 0),
+(10, 'FJ22-10-2022N10', '2022-10-22', '', 30000, 50000, '1', 0),
+(11, 'FJ22-10-2022N11', '2022-10-22', '', 40000, 50000, '1', 0);
 
 --
 -- Triggers `tabel_penjualan`
@@ -726,7 +738,7 @@ ALTER TABLE `rinci_order`
 -- AUTO_INCREMENT for table `tabelrealpenjualan`
 --
 ALTER TABLE `tabelrealpenjualan`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tabelsatuan`
@@ -738,7 +750,7 @@ ALTER TABLE `tabelsatuan`
 -- AUTO_INCREMENT for table `tabel_penjualan`
 --
 ALTER TABLE `tabel_penjualan`
-  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
