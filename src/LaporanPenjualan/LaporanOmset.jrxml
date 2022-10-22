@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LaporanOmset" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd1ff4c2-67cf-41c9-a635-2e7469e22290">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Tanggal" class="java.lang.String"/>
+	<parameter name="TanggalAkhir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+    tabel_penjualan.Tgl_Jual AS tglJual,
+    SUM(tabel_penjualan.Total) AS omset
+FROM
+    tabel_penjualan
+WHERE
+    tabel_penjualan.Tgl_Jual BETWEEN $P{Tanggal} AND $P{TanggalAkhir}
+GROUP BY
+    tabel_penjualan.Tgl_Jual
+ORDER BY
+    tabel_penjualan.Tgl_Jual ASC]]>
+	</queryString>
+	<field name="tglJual" class="java.sql.Date"/>
+	<field name="omset" class="java.lang.Double"/>
+	<variable name="Total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{omset}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="89" y="30" width="100" height="20" uuid="ce424ba8-aee1-4214-8901-07610af37aa4"/>
+				<textFieldExpression><![CDATA[$P{Tanggal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="30" width="100" height="20" uuid="123df35a-9d0d-4aad-9897-864eb70187c8"/>
+				<textFieldExpression><![CDATA[$P{TanggalAkhir}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="227" y="0" width="100" height="20" uuid="c294b28f-2eab-483a-a1e1-82d260f98d66"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Laporan Omset]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="30" width="61" height="20" uuid="e78dded9-dd54-455c-87e5-cf90bdb371f2"/>
+				<text><![CDATA[Mulai]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="30" width="100" height="20" uuid="e293bdd3-2769-4ed3-b907-72428b94b0c7"/>
+				<text><![CDATA[Sampai Dengan]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="2" width="100" height="20" uuid="488fe95d-8d60-41b6-bef1-aea7864dd39d"/>
+				<text><![CDATA[tglJual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="2" width="100" height="20" uuid="74f9f261-69ae-48a9-b855-7a9b9ce23b86"/>
+				<text><![CDATA[omset]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="15" y="0" width="100" height="20" uuid="f816082e-d073-4fb6-bf29-54cca07a7ac6"/>
+				<textFieldExpression><![CDATA[$F{tglJual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="217" y="0" width="100" height="20" uuid="0e5b7348-51bb-43a8-b4e1-cddd145dd165"/>
+				<textFieldExpression><![CDATA[$F{omset}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="427" y="0" width="100" height="20" uuid="4b480522-833c-4c28-8a38-d324c9d893da"/>
+				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="327" y="0" width="100" height="20" uuid="55e48f83-f360-432f-83ae-9f7b962c3364"/>
+				<text><![CDATA[Total Omset]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
