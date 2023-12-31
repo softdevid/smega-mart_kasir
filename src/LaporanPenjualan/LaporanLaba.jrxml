@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Laporan Laba" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9ac963f0-9df0-4d65-9705-2ffe3f413a43">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Tanggal" class="java.lang.String"/>
+	<parameter name="TanggalAkhir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+    toko.Nama,
+    tabelrealpenjualan.barcode,
+    tabelrealpenjualan.namaBarang,
+    tabelrealpenjualan.hrgJual,
+    tabelrealpenjualan.hrgBeli,
+    tabelrealpenjualan.jmlhJual,
+    (
+        tabelrealpenjualan.hrgJual - tabelrealpenjualan.hrgBeli
+    ) * tabelrealpenjualan.jmlhJual AS Laba
+FROM
+    tabelrealpenjualan,
+    tabel_penjualan,
+    toko
+WHERE
+    tabelrealpenjualan.noFakturJualan = tabel_penjualan.No_Faktur_Jual AND tabel_penjualan.Tgl_Jual BETWEEN $P{Tanggal} AND $P{TanggalAkhir}]]>
+	</queryString>
+	<field name="Nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="barcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="namaBarang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hrgJual" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hrgBeli" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jmlhJual" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Laba" class="java.lang.Double"/>
+	<variable name="TotalLaba" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Laba}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="edc3cd33-936f-41fc-bf7c-33bef7753cc8"/>
+				<textFieldExpression><![CDATA[$F{Nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="0" width="100" height="20" uuid="27ceeecf-2a13-4160-9cca-d54e63d4a417"/>
+				<textFieldExpression><![CDATA[$P{Tanggal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="579e41e4-9650-4085-b359-095405aecc9d"/>
+				<textFieldExpression><![CDATA[$P{TanggalAkhir}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="404" y="0" width="34" height="20" uuid="2d1a3dc3-2b79-489d-a587-534ba172f8c6"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[sd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="76" height="20" uuid="0b2d44c7-d7b2-411e-bb70-15019021ca3e"/>
+				<text><![CDATA[Dari Tanggal :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="79" height="20" uuid="afb0e47e-fda1-42cd-b722-b7e69b523cc8"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[barcode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="2" width="100" height="20" uuid="5b3a3869-c696-4b73-8819-e6565f1b1cba"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[namaBarang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="2" width="83" height="20" uuid="847e99c0-d3f1-4b21-8fbd-dff59d9328a5"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[hrgJual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="2" width="71" height="20" uuid="ec159e34-f70d-421a-b635-9de8259281ea"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[jmlhJual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="2" width="74" height="20" uuid="665db455-00d4-485b-802d-ebfce75ca8e1"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Laba]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="2" width="79" height="20" uuid="7e834df4-5fe4-4d09-9001-ed920b2acdda"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[hrgBeli]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="79" height="20" uuid="4795c0de-cb6f-4f58-97e5-b5c5f1b595db"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{barcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="0" width="100" height="20" uuid="a81968fd-6490-412a-97df-8aa192bb1081"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{namaBarang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="179" y="0" width="83" height="20" uuid="04e0ed49-bfbb-499f-9e3e-bb00c144459a"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hrgJual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="0" width="71" height="20" uuid="3b076bd1-274e-4051-8273-beb85f91524d"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jmlhJual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="64" height="20" uuid="c88c2576-bf9d-45b5-af9a-2d965b60cd11"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Laba}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="79" height="20" uuid="2cce70fa-78c8-4dbb-91b0-50902c91c7a2"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hrgBeli}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="438" y="10" width="100" height="20" uuid="1b75bc30-7817-4906-baf5-03c2369d9b05"/>
+				<textFieldExpression><![CDATA[$V{TotalLaba}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="335" y="10" width="100" height="20" uuid="6050f021-7b11-4126-9c50-ba6979ab3796"/>
+				<text><![CDATA[Total Laba ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
